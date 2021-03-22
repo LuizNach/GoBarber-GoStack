@@ -3,3 +3,9 @@
 
 #back-end-test
 /back-end-test/node_modules/
+
+#front-end
+/fron-end/node_modules/
+
+#front-end-test
+/front-end-test/node_modules/
