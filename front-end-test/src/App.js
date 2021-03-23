@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import { render } from 'react-dom';
 
+import './App.css';
+import backgroundImage from './assets/background.jpg';
+
 import Header from './Header';
 
 function App(){
@@ -36,6 +39,9 @@ function App(){
 
     return (
         <>
+
+            <img width={300} src={backgroundImage}></img>
+
             <Header title="Projects">
                 <ul>
                     <li> Homepage </li>
