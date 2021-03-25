@@ -45,3 +45,5 @@ echo "=> LOG: Webpack Adding css-loader style-loader"
 yarn add style-loader css-loader
 echo "=> LOG: Webpack Assing file-loader"
 yarn add file-loader
+echo "=> LOG: Add Axios for http requests"
+yarn add axios

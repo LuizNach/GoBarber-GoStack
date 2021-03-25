@@ -18,3 +18,5 @@ yarn add date-fns
 echo "=> LOG: Create the source folder"
 mkdir "src"
 cd src
+echo "=> LOG: Adding CORS to connect to local FE"
+yarn add cors

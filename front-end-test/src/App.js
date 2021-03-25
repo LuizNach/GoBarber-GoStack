@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
-import { render } from 'react-dom';
+import React, {useState, useEffect} from 'react';
+import api from './service/api';
 
 import './App.css';
-import backgroundImage from './assets/background.jpg';
 
 import Header from './Header';
 
@@ -30,17 +29,23 @@ function App(){
      * Por causa disso ao invez de declarar uma variavel e pegar o useState[0] para a variavel, usamos desconstrucao
      */
 
-    let [projects, setProjects] = useState(["React Native", "NodeJs"]);
+    let [projects, setProjects] = useState([]);
+
+    useEffect(() => {
+        api.get('/projects').then((response) => { 
+            // console.log("Response:", response); 
+            // console.log("Projects", projects);
+            setProjects(response.data);
+        })
+    }, []);
 
     function handleAddProject(){
         setProjects([...projects, `Novo projeto ${Date.now()}`]);
-        console.log(projects)
+        //console.log(projects)
     }
 
     return (
         <>
-
-            <img width={300} src={backgroundImage}></img>
 
             <Header title="Projects">
                 <ul>
@@ -50,7 +55,7 @@ function App(){
             </Header>
 
             <ul>
-                { projects.map( (project) => { return <li key={project}>{project}</li> } )}
+                { projects.map( (project) => { return <li key={project.id}>{project.title}</li> } )}
             </ul>
 
             <button type="button" onClick={handleAddProject}>Adicionar Projeto</button>
