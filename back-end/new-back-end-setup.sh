@@ -8,3 +8,5 @@ yarn add typescript -D
 echo "=> LOG: Initialize typescript project - Add ts config json file"
 yarn tsc --init
 # to convert automatically ts files into js run: yarn tsc
+echo "=> LOG: Added watch server addon"
+yarn add ts-node-dev -D
