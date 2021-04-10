@@ -10,6 +10,10 @@ yarn tsc --init
 # to convert automatically ts files into js run: yarn tsc
 echo "=> LOG: Added watch server addon"
 yarn add ts-node-dev -D
+echo "=> LOG: Adding Eslint"
+yarn add eslint -D
+yarn eslint --init
+yarn add eslint-import-resolver-typescript -D
 echo "=> LOG: Adding uuid library"
 yarn add uuid
 yarn add @types/uuid -D
