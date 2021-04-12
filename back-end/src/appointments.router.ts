@@ -3,38 +3,37 @@ import { v4 as uuidv4, validate as isUuid } from 'uuid';
 import { startOfHour, parseISO, isEqual } from 'date-fns';
 import Appointment from './models/Appointment';
 import AppointmentsRepository from './repositories/AppointmentsRepository';
+import CreateAppointmentService from './service/CreateAppointmentService';
 
 const appointmentsRouter = Router();
 const appointmentsRepository = new AppointmentsRepository();
 
 //SoC: Separation of Conserns
-//DTO - Data transfer object - 
+//DTO - Data transfer object
+//Dry: Don't repeat yourself
 
 appointmentsRouter.get('/', (request, response) => {
 
     let appointments = appointmentsRepository.all();
 
-    return response.json({ appointments});
+    return response.json({ appointments });
 })
 
 appointmentsRouter.post('/', (request, response) => {
 
-    const { provider, date } = request.body;
+    try {
+        const { provider, date } = request.body;
 
-    const parsedDate = startOfHour(parseISO(date));
+        const parsedDate = parseISO(date);
 
-    const findAppointmentInSameDate = appointmentsRepository.findByDate(parsedDate);
+        const createAppointmentService = new CreateAppointmentService(appointmentsRepository);
 
-    if(findAppointmentInSameDate){
-        return response.status(400).json({message: 'This appointment is already booked'});
+        const appointment = createAppointmentService.execute({ provider, date: parsedDate})
+
+        return response.json(appointment);
+    } catch (error) {
+        return response.status(400).json({error: error.message});
     }
-
-    const appointment = appointmentsRepository.create({
-        provider, 
-        date: parsedDate
-    });
-
-    return response.json(appointment);
 });
 
 export default appointmentsRouter;
